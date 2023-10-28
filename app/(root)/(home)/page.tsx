@@ -1,7 +1,10 @@
-import React from "react";
+import { UserButton } from "@clerk/nextjs";
 
-const page = () => {
-  return <div>Home sweet</div>;
-};
-
-export default page;
+export default function Home() {
+  return (
+    <div>
+      <h1 className="h1-bold">Home</h1>
+      <UserButton afterSignOutUrl="/" />
+    </div>
+  );
+}
