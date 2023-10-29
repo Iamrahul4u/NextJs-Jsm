@@ -4,6 +4,7 @@ import "../globals.css";
 // eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Metadata } from "next";
+import ThemeProvider from "@/context/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "DevFlow",
@@ -34,13 +35,15 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
-        <body className={`${inter.variable} ${grotesk.variable}`}>
-          <h1 className="h1-bold">HomeNav</h1>
+      <ThemeProvider>
+        <html lang="en">
+          <body className={`${inter.variable} ${grotesk.variable}`}>
+            <h1 className="h1-bold">HomeNav</h1>
 
-          {children}
-        </body>
-      </html>
+            {children}
+          </body>
+        </html>
+      </ThemeProvider>
     </ClerkProvider>
   );
 }
