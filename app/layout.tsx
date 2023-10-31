@@ -1,10 +1,10 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import React from "react";
-import "../globals.css";
+import "./globals.css";
 // eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Metadata } from "next";
 import ThemeProvider from "@/context/ThemeProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "DevFlow",
@@ -27,23 +27,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        elements: {
-          formButtonPrimary: "primary-gradient",
-          footerActionLink: "primary-text-gradient hover:text-primary-500",
-        },
-      }}
-    >
-      <ThemeProvider>
-        <html lang="en">
-          <body className={`${inter.variable} ${grotesk.variable}`}>
-            <h1 className="h1-bold">HomeNav</h1>
-
+    <html lang="en">
+      <body
+        className={`${inter.variable}  ${grotesk.variable} custom-scrollbar`}
+      >
+        <ClerkProvider
+          appearance={{
+            elements: {
+              formButtonPrimary: "primary-gradient",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
+            },
+          }}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
-          </body>
-        </html>
-      </ThemeProvider>
-    </ClerkProvider>
+          </ThemeProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

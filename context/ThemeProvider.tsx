@@ -1,34 +1,12 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+"use client";
 
-interface ThemeTypes {
-  mode: string;
-  setMode: (mode: string) => void;
+import * as React from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { type ThemeProviderProps } from "next-themes/dist/types";
+
+export default function ThemeProvider({
+  children,
+  ...props
+}: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
-
-const ThemeContext = createContext<ThemeTypes | undefined>(undefined);
-
-const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [mode, setMode] = useState("");
-  const handleThemeChange = () => {
-    if (mode === "light") {
-      document.documentElement.classList.add("dark");
-      setMode("dark");
-    } else {
-      setMode("light");
-      document.documentElement.classList.add("light");
-    }
-  };
-  useEffect(() => handleThemeChange(), [mode]);
-  return (
-    <ThemeContext.Provider value={{ mode, setMode }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) throw new Error("useTheme must be used within a ThemeProvider");
-  return context;
-};
-export default ThemeProvider;
