@@ -1,8 +1,8 @@
 import React from "react";
 import "../globals.css";
-import Navbar from "@/components/shared/Navbar";
-import LeftSideBar from "@/components/shared/LeftSideBar";
-import RightSideBar from "@/components/shared/RightSideBar";
+import Navbar from "@/components/shared/navbar/Navbar";
+import LeftSideBar from "@/components/shared/home/LeftSideBar";
+import RightSideBar from "@/components/shared/home/RightSideBar";
 
 export default function RootLayout({
   children,

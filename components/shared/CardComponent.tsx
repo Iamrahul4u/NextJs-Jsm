@@ -2,38 +2,29 @@ import { timeAgo } from "@/utlils/helperFunction";
 import Image from "next/image";
 import React from "react";
 import { BadgeDemo } from "./Badge";
+import { IQuestion } from "@/database/question.model";
 
-const card = {
-  id: 1,
-  title: "NEXT",
-  description: 'This is the description for the card with the title "NEXT".',
-  user: "Maximiliano Villoldo",
-  datetime: "2023-10-25T15:30:00Z",
-  votes: 0,
-  answers: 0,
-  views: 0,
-  imageUrl: "https://example.com/card1-image.jpg",
-  tags: ["Next.js", "Routing", "React"],
-};
 
-const Card = () => {
+
+const Card = ({question}:IQuestion) => {
   return (
     <div className="mb-4 rounded-lg p-4 shadow-md dark:bg-zinc-800">
       <div className="flex items-center">
         <div className="mr-4">
           <img
-            src="https://www.gravatar.com/avatar/0f5f0ea6a2dc7ed3cb5830377a4fe7e2?s=256&d=identicon&r=PG"
-            alt={card.title}
+            // src={question.author.picture}
+            src="https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWE91OFdCS0pDbEp2VUdwZ3VjVDRuN1l3SEEifQ?width=160"
+            alt={question.title}
             className="h-12 w-12 rounded-full"
           />
         </div>
         <div>
-          <h2 className="text-xl font-semibold ">{card.title}</h2>
-          <p className="text-gray-600">{card.user}</p>
-          <p className="text-sm text-gray-500">{timeAgo(card.datetime)}</p>
+          <h2 className="text-xl font-semibold ">{question.title}</h2>
+          <p className="text-gray-600">{question.author.name}</p>
+          <p className="text-sm text-gray-500">{timeAgo(question.createdAt)}</p>
         </div>
       </div>
-      <p className="mt-4">{card.description}</p>
+      <p className="mt-4 line-clamp-2">{question.content}</p>
       <div className="mt-4 flex-col justify-between md:flex md:flex-row">
         <div className="flex items-center">
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
@@ -43,7 +34,7 @@ const Card = () => {
               width={18}
               alt="likes"
             />
-            <p className="flex text-xs md:text-sm">{card.votes} Votes</p>
+            <p className="flex text-xs md:text-sm">{question.votes} Votes</p>
           </span>
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
             <Image
@@ -52,7 +43,7 @@ const Card = () => {
               width={18}
               alt="likes"
             />
-            <p className="flex text-xs md:text-sm">{card.answers} Answers</p>
+            <p className="flex text-xs md:text-sm">{question.answers} Answers</p>
           </span>
           <span className="flex gap-2 text-sm text-gray-600">
             <Image
@@ -61,12 +52,12 @@ const Card = () => {
               width={18}
               alt="likes"
             />
-            <p className="flex text-xs md:text-sm">{card.views} Views</p>
+            <p className="flex text-xs md:text-sm">{question.views} Views</p>
           </span>
         </div>
         <div className="mt-2 space-x-2">
-          {card.tags.map((tag, index) => (
-            <BadgeDemo key={tag} title={tag} />
+          {question?.tags?.map((tag) => (
+            <BadgeDemo key={tag} title={tag.name} />
           ))}
         </div>
       </div>
