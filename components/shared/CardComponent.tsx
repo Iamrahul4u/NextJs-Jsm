@@ -2,9 +2,8 @@ import { timeAgo } from "@/utlils/helperFunction";
 import Image from "next/image";
 import React from "react";
 import { BadgeDemo } from "./Badge";
-import { IQuestion } from "@/database/question.model";
 
-const Card = ({ question }: IQuestion) => {
+const Card = ({ question }: any) => {
   return (
     <div className="mb-4 rounded-lg p-4 shadow-md dark:bg-zinc-800">
       <div className="flex items-center">
