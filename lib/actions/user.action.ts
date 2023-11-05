@@ -18,7 +18,7 @@ export const getUser = async (params: any) => {
 export const createUser = async (params: CreateUserParams) => {
   try {
     connectDb();
-    const user = await User.create({ params }, { new: true });
+    const user = await User.create(params);
     return user;
   } catch (error: any) {
     console.log("error:" + error.message);
