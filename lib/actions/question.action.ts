@@ -4,13 +4,10 @@ import { Question } from "@/database/question.model";
 import connectDb from "../mongoose";
 import { Tag } from "@/database/tag.model";
 import { User } from "@/database/user.model";
-import {
-  CreateQuestionParams,
-  GetAnswersParams,
-} from "../sharedtypes/sharedtypes";
+import { CreateQuestionParams } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
 
-export const getQuestions = async (params: GetAnswersParams) => {
+export const getQuestions = async () => {
   connectDb();
   try {
     const questions = await Question.find({})
