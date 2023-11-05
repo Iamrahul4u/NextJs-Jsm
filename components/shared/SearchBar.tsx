@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Input } from "../ui/input";
 
-const SearchBar = ({ title }) => {
+const SearchBar = ({ title }: { title: string }) => {
   return (
     <div className="flex w-full  space-x-2   rounded-sm bg-slate-100 pl-2 align-middle  dark:bg-zinc-800 max-lg:hidden">
       <Image
