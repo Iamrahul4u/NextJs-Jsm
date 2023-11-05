@@ -21,7 +21,7 @@ import React, { useRef, useState } from "react";
 import process from "process";
 import { X } from "lucide-react";
 import { postQuestion } from "@/lib/actions/question.action";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const type: any = "create";
 
@@ -136,9 +136,11 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
-                  onEditorChange={() =>
-                    form.setValue("content", editorRef.current.getContent())
-                  }
+                  onEditorChange={() => {
+                    if (editorRef.current) {
+                      form.setValue("content", editorRef.current.getContent());
+                    }
+                  }}
                   initialValue=""
                   init={{
                     height: 500,
