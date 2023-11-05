@@ -20,17 +20,14 @@ import * as z from "zod";
 import React, { useRef, useState } from "react";
 import process from "process";
 import { X } from "lucide-react";
-import connectDb from "@/lib/mongoose";
-import mongoose from "mongoose";
 import { postQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 
 const type: any = "create";
 
-const Questions = ({mongoUser}:{mongoUser:string}) => {
+const Questions = ({ mongoUser }: { mongoUser: string }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
-  const router=useRouter();
-  const pathname=usePathname();
+  const router = useRouter();
   const editorRef = useRef(null);
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -80,12 +77,13 @@ const Questions = ({mongoUser}:{mongoUser:string}) => {
     try {
       setSubmitting(true);
       await postQuestion({
-        title:values.title,
-        content:values.content,
-        tags:values.tags
-        ,author:JSON.parse(mongoUser)
+        title: values.title!,
+        content: values.content,
+        tags: values.tags,
+        author: JSON.parse(mongoUser),
+        path: "/",
       });
-      router.push('/');
+      router.push("/");
     } catch (error) {
     } finally {
       setSubmitting(false);
@@ -139,10 +137,7 @@ const Questions = ({mongoUser}:{mongoUser:string}) => {
                     editorRef.current = editor;
                   }}
                   onEditorChange={() =>
-                    form.setValue(
-                      "content",
-                      editorRef.current.getContent(),
-                    )
+                    form.setValue("content", editorRef.current.getContent())
                   }
                   initialValue=""
                   init={{
