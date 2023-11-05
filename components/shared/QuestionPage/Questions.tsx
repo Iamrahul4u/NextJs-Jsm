@@ -137,9 +137,8 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     editorRef.current = editor;
                   }}
                   onEditorChange={() => {
-                    if (editorRef.current) {
-                      form.setValue("content", editorRef.current.getContent());
-                    }
+                    // @ts-ignore
+                    form.setValue("content", editorRef.current.getContent());
                   }}
                   initialValue=""
                   init={{
