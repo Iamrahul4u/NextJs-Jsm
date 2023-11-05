@@ -21,7 +21,7 @@ import React, { useRef, useState } from "react";
 import process from "process";
 import { X } from "lucide-react";
 import { postQuestion } from "@/lib/actions/question.action";
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 
 const type: any = "create";
 

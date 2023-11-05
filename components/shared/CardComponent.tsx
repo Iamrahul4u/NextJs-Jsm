@@ -4,16 +4,13 @@ import React from "react";
 import { BadgeDemo } from "./Badge";
 import { IQuestion } from "@/database/question.model";
 
-
-
-const Card = ({question}:IQuestion) => {
+const Card = ({ question }: IQuestion) => {
   return (
     <div className="mb-4 rounded-lg p-4 shadow-md dark:bg-zinc-800">
       <div className="flex items-center">
         <div className="mr-4">
           <img
-            // src={question.author.picture}
-            src="https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWE91OFdCS0pDbEp2VUdwZ3VjVDRuN1l3SEEifQ?width=160"
+            src={question.author.picture}
             alt={question.title}
             className="h-12 w-12 rounded-full"
           />
@@ -43,7 +40,9 @@ const Card = ({question}:IQuestion) => {
               width={18}
               alt="likes"
             />
-            <p className="flex text-xs md:text-sm">{question.answers} Answers</p>
+            <p className="flex text-xs md:text-sm">
+              {question.answers} Answers
+            </p>
           </span>
           <span className="flex gap-2 text-sm text-gray-600">
             <Image
