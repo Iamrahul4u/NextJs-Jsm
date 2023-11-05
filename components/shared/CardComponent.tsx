@@ -54,7 +54,7 @@ const Card = ({ question }: any) => {
           </span>
         </div>
         <div className="mt-2 space-x-2">
-          {question?.tags?.map((tag) => (
+          {question?.tags?.map((tag: any) => (
             <BadgeDemo key={tag} title={tag.name} />
           ))}
         </div>
