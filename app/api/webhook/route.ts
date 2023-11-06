@@ -53,6 +53,7 @@ export async function POST(req: Request) {
 
   // Get the ID and type
   const eventType = evt.type;
+
   if (eventType === "user.created") {
     const { id, username, first_name, last_name, image_url, email_addresses } =
       evt.data;
@@ -63,10 +64,33 @@ export async function POST(req: Request) {
       picture: image_url,
       email: email_addresses[0].email_address!,
     });
-    return NextResponse.json(
-      { message: "User created successfully", user: newUser },
-      { status: 200 },
-    );
+    return NextResponse.json({
+      message: "User created successfully",
+      user: newUser,
+    });
+  } else if (eventType === "user.deleted") {
+    const { id } = evt.data;
+    const deletedUser = await createUser({
+      clerkId: id,
+    });
+    return NextResponse.json({
+      message: "User Deleted successfully",
+      user: deletedUser,
+    });
+  } else if (eventType === "user.updated") {
+    const { id, username, first_name, last_name, image_url, email_addresses } =
+      evt.data;
+    const newUser = await createUser({
+      clerkId: id,
+      name: `${first_name} ${last_name || ""}`,
+      username: username!,
+      picture: image_url,
+      email: email_addresses[0].email_address!,
+    });
+    return NextResponse.json({
+      message: "User created successfully",
+      user: newUser,
+    });
   }
 
   return new Response("", { status: 201 });
