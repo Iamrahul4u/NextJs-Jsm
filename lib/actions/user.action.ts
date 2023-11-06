@@ -52,7 +52,7 @@ export const updateUser = async (params: UpdateUserParams) => {
     connectDb();
 
     const { path, clerkId, updateData } = params;
-    const user = await User.findByIdAndUpdate({ clerkId }, updateData, {
+    const user = await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
     revalidatePath(path);

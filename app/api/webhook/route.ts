@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       evt.data;
 
     const newUser = await updateUser({
-      clerkId: id,
+      clerkId: id!,
       updateData: {
         name: `${first_name} ${last_name || ""}`,
         username: username!,
