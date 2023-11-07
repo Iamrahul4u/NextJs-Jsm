@@ -1,6 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import { BadgeDemo } from "../Badge";
 
 interface tag {
   id: string;
