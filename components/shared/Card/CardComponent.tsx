@@ -8,8 +8,8 @@ const Card = ({ question }: any) => {
     <div className="mb-4 rounded-lg p-4 shadow-md dark:bg-zinc-800">
       <div className="flex items-center">
         <div className="mr-4">
-          <img
-            src={question.author.picture}
+          <Image
+            src={question?.author?.picture}
             alt={question.title}
             className="h-12 w-12 rounded-full"
           />

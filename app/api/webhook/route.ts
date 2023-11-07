@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     const { id, username, first_name, last_name, image_url, email_addresses } =
       evt.data;
     const newUser = await createUser({
-      clerkId: id,
+      clerkId: id!,
       name: `${first_name} ${last_name || ""}`,
       username: username!,
       picture: image_url,

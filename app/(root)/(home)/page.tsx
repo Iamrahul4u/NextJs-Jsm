@@ -35,9 +35,11 @@ export default async function Home() {
         ))}
       </div>
       <div className="mt-10 flex w-full flex-col gap-6 ">
-        {result?.map((question) => (
-          <Card key={question._id} question={question} />
-        ))}
+        {result
+          ? result?.map((question) => (
+              <Card key={question._id} question={question} />
+            ))
+          : "No Questions"}
       </div>
     </section>
   );
