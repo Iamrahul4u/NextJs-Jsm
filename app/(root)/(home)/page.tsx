@@ -1,5 +1,5 @@
 import { BadgeDemo } from "@/components/shared/Badge";
-import Card from "@/components/shared/CardComponent";
+import Card from "@/components/shared/Card/CardComponent";
 import { badgeData } from "@/components/shared/home/RightSideBar";
 import SearchBar from "@/components/shared/SearchBar";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ export default async function Home() {
           </Button>
         </Link>
       </div>
-      <div className="mt-2">
+      <div className="mt-7">
         <SearchBar title={"Search Topics"} />
       </div>
       <div className="mt-7 flex  gap-2">

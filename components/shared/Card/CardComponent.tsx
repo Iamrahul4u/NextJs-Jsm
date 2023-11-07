@@ -1,7 +1,7 @@
 import { timeAgo } from "@/utlils/helperFunction";
 import Image from "next/image";
 import React from "react";
-import { BadgeDemo } from "./Badge";
+import { BadgeDemo } from "../Badge";
 
 const Card = ({ question }: any) => {
   return (

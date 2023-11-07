@@ -6,6 +6,7 @@ import connectDb from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   UpdateUserParams,
 } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
@@ -56,6 +57,18 @@ export const updateUser = async (params: UpdateUserParams) => {
       new: true,
     });
     revalidatePath(path);
+    return user;
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const getAllUser = async (params: GetAllUsersParams) => {
+  try {
+    connectDb();
+
+    // const { path, clerkId, updateData } = params;
+    const user = await User.find({});
     return user;
   } catch (error: any) {
     console.log("error:" + error.message);
