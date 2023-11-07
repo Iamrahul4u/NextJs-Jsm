@@ -31,7 +31,7 @@ const Page = async () => {
 
 export default Page;
 
-export const UsersFilter = [
+const UsersFilter = [
   {
     id: "1",
     label: "Top User",
