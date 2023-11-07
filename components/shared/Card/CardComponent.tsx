@@ -5,22 +5,28 @@ import { BadgeDemo } from "../Badge";
 
 const Card = ({ question }: any) => {
   return (
-    <div className="mb-4 rounded-lg p-4 shadow-md dark:bg-zinc-800">
-      <div className="flex items-center">
-        <div className="mr-4">
+    <div className="mb-4 max-w-2xl rounded-lg p-4 shadow-md dark:bg-zinc-800">
+      <div className="flex items-start md:items-center">
+        <div className="mr-4 hidden md:block">
           <Image
-            src={question?.author?.picture}
+            src={question.author.picture}
             alt={question.title}
-            className="h-12 w-12 rounded-full"
+            height={42}
+            width={42}
+            className=" rounded-full object-cover "
           />
         </div>
         <div>
-          <h2 className="text-xl font-semibold ">{question.title}</h2>
+          <h2 className="line-clamp-1 text-xl font-semibold">
+            {question.title}
+          </h2>
           <p className="text-gray-600">{question.author.name}</p>
           <p className="text-sm text-gray-500">{timeAgo(question.createdAt)}</p>
         </div>
       </div>
-      <p className="mt-4 line-clamp-2">{question.content}</p>
+      <p className="mt-4 line-clamp-2 hidden md:line-clamp-2 ">
+        {question.content}
+      </p>
       <div className="mt-4 flex-col justify-between md:flex md:flex-row">
         <div className="flex items-center">
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
