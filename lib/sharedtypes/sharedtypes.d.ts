@@ -56,7 +56,7 @@ export interface CreateQuestionParams {
   path: string;
 }
 export interface GetQuestionByIdParams {
-  questionId: string;
+  id: string;
 }
 export interface QuestionVoteParams {
   questionId: string;

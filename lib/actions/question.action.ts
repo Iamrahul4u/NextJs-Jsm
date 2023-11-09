@@ -4,7 +4,10 @@ import { Question } from "@/database/question.model";
 import connectDb from "../mongoose";
 import { Tag } from "@/database/tag.model";
 import { User } from "@/database/user.model";
-import { CreateQuestionParams } from "../sharedtypes/sharedtypes";
+import {
+  CreateQuestionParams,
+  GetQuestionByIdParams,
+} from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
 
 export const getQuestions = async () => {
@@ -12,7 +15,8 @@ export const getQuestions = async () => {
   try {
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
-      .populate({ path: "author", model: User });
+      .populate({ path: "author", model: User })
+      .sort({ createdAt: -1 });
     return questions;
   } catch (error: any) {
     throw new Error(error);
@@ -41,6 +45,19 @@ export const postQuestion = async (params: CreateQuestionParams) => {
       $push: { tags: tagDocuments },
     });
     revalidatePath(path);
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const getQuestionById = async (params: GetQuestionByIdParams) => {
+  connectDb();
+  try {
+    const { id } = params;
+    const question = await Question.findById(id)
+      .populate({ path: "tags", model: Tag, select: "_id name" })
+      .populate({ path: "author", model: User, select: "_id name picture" });
+    return question;
   } catch (error: any) {
     console.log("error:" + error.message);
   }

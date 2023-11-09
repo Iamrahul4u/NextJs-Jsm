@@ -7,7 +7,7 @@ import React from "react";
 const Page = async () => {
   const result = await getTags();
   return (
-    <section className=" flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
+    <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className=" text-dark100_light900 mb-5 text-3xl font-bold">Tags</h1>
       </div>
@@ -23,7 +23,7 @@ const Page = async () => {
           <div>No Tags Found</div>
         )}
       </div>
-    </section>
+    </>
   );
 };
 

@@ -2,10 +2,11 @@ import { timeAgo } from "@/utlils/helperFunction";
 import Image from "next/image";
 import React from "react";
 import { BadgeDemo } from "../Badge";
+import AnalyticsDetails from "../AnalyticsDetails";
 
 const Card = ({ question }: any) => {
   return (
-    <div className="mb-4 max-w-2xl rounded-lg p-4 shadow-md dark:bg-zinc-800">
+    <div className="mb-4 max-w-2xl cursor-pointer rounded-lg p-4 shadow-md dark:bg-zinc-800">
       <div className="flex items-start md:items-center">
         <div className="mr-4 hidden md:block">
           <Image
@@ -24,10 +25,9 @@ const Card = ({ question }: any) => {
           <p className="text-sm text-gray-500">{timeAgo(question.createdAt)}</p>
         </div>
       </div>
-      <p className="mt-4 line-clamp-2 hidden md:line-clamp-2 ">
-        {question.content}
-      </p>
+
       <div className="mt-4 flex-col justify-between md:flex md:flex-row">
+        {/* 
         <div className="flex items-center">
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
             <Image
@@ -56,9 +56,18 @@ const Card = ({ question }: any) => {
               width={18}
               alt="likes"
             />
-            <p className="flex text-xs md:text-sm">{question.views} Views</p>
+            <p className="flex text-xs md:text-sm">
+              {question.views.length || 0} Views
+            </p>
           </span>
-        </div>
+        */}
+
+        {/* </div>  */}
+        <AnalyticsDetails
+          views={question.views || 0}
+          answers={question.answers.length || 0}
+          votes={question.votes || 0}
+        />
         <div className="mt-2 space-x-2">
           {question?.tags?.map((tag: any) => (
             <BadgeDemo key={tag} title={tag.name} />

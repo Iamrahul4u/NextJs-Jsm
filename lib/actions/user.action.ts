@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 "use server";
 
 import { User } from "@/database/user.model";

@@ -136,9 +136,9 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
-                  onEditorChange={() => {
+                  onEditorChange={(content) => {
                     // @ts-ignore
-                    form.setValue("content", editorRef.current.getContent());
+                    field.onChange(content);
                   }}
                   initialValue=""
                   init={{
@@ -169,6 +169,8 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     content_style: `body {  font-family: Arial, Inter;
                         font-size: 14px;
                         `,
+                    skin: "oxide-dark",
+                    content_css: "dark",
                   }}
                 />
                 <FormMessage />
