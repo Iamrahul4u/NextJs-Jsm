@@ -31,7 +31,7 @@ const Card = ({ question }: any) => {
         <div className="flex items-center">
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
             <Image
-              src="assets/icons/like.svg"
+              src="/assets/icons/like.svg"
               height={18}
               width={18}
               alt="likes"
@@ -40,7 +40,7 @@ const Card = ({ question }: any) => {
           </span>
           <span className="mr-2 flex gap-2 text-sm text-gray-600">
             <Image
-              src="assets/icons/message.svg"
+              src="/assets/icons/message.svg"
               height={18}
               width={18}
               alt="likes"
@@ -51,7 +51,7 @@ const Card = ({ question }: any) => {
           </span>
           <span className="flex gap-2 text-sm text-gray-600">
             <Image
-              src="assets/icons/eye.svg"
+              src="/assets/icons/eye.svg"
               height={18}
               width={18}
               alt="likes"

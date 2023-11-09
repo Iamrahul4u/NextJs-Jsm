@@ -10,6 +10,8 @@ import { getUser } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { getAnswersByQuestion } from "@/lib/actions/answer.action";
 import Filter from "@/components/shared/Filter";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { userId } = auth();
@@ -59,20 +61,35 @@ const Page = async ({ params }: { params: { id: string } }) => {
           ))}
         </div>
         {/* Answers Section */}
-        <div className="mt-14">
-          {/* Answers Filter */}
-          <div className="flex items-center justify-between">
-            <p className="text-orange-500">
-              {question.answers.length || 0} Answers
-            </p>
-            <Filter filter={AnswersFilter} />
+        {answers?.length > 0 && (
+          <div className="mt-14 max-w-5xl">
+            {/* Answers Filter */}
+            <div className="flex items-center justify-between">
+              <p className="text-orange-500">
+                {question.answers.length || 0} Answers
+              </p>
+              <Filter filter={AnswersFilter} />
+            </div>
+            {answers?.map((answer) => (
+              <Answer key={answer._id} answer={answer} />
+            ))}
           </div>
-        </div>
-        {answers?.map((answer) => <Answer key={answer._id} answer={answer} />)}
-        <AnswerForm
-          author={JSON.stringify(mongouser._id)}
-          question={JSON.stringify(question._id)}
-        />
+        )}
+        {userId ? (
+          <AnswerForm
+            author={JSON.stringify(mongouser._id)}
+            question={JSON.stringify(question._id)}
+          />
+        ) : (
+          <div className="flex items-center justify-center gap-4 py-20">
+            <h2 className="text-2xl">Login to Answer the Question</h2>
+            <Link href="/sign-in">
+              <Button className="w-full " variant="default">
+                Login
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

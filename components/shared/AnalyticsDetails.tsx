@@ -10,11 +10,11 @@ interface Props {
 }
 const AnalyticsDetails = (question: Props) => {
   return (
-    <div className="my-2 flex items-center gap-2">
+    <div className="my-2 flex items-center gap-3">
       {question.votes! >= 0 ? (
-        <span className="mr-2 flex gap-2 text-sm text-gray-600">
+        <span className=" flex gap-1 text-sm text-gray-600">
           <Image
-            src="assets/icons/like.svg"
+            src="/assets/icons/like.svg"
             height={18}
             width={18}
             alt="likes"
@@ -26,9 +26,9 @@ const AnalyticsDetails = (question: Props) => {
       )}
 
       {question.answers! >= 0 ? (
-        <span className="mr-2 flex gap-2 text-sm text-gray-600">
+        <span className=" flex gap-1 text-sm text-gray-600">
           <Image
-            src="assets/icons/message.svg"
+            src="/assets/icons/message.svg"
             height={18}
             width={18}
             alt="likes"
@@ -39,9 +39,9 @@ const AnalyticsDetails = (question: Props) => {
         ""
       )}
       {question.views! >= 0 ? (
-        <span className="flex gap-2 text-sm text-gray-600">
+        <span className="flex gap-1 text-sm text-gray-600">
           <Image
-            src="assets/icons/eye.svg"
+            src="/assets/icons/eye.svg"
             height={18}
             width={18}
             alt="likes"
@@ -52,9 +52,9 @@ const AnalyticsDetails = (question: Props) => {
         ""
       )}
       {question.createdAt ? (
-        <span className="flex gap-2 text-sm text-gray-600">
+        <span className="flex gap-1 text-sm text-gray-600">
           <Image
-            src="assets/icons/clock.svg"
+            src="/assets/icons/clock.svg"
             height={18}
             width={18}
             alt="likes"

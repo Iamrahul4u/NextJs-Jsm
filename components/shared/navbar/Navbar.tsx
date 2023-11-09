@@ -12,7 +12,7 @@ const Navbar = () => {
       <Link href="/" className="cursor-pointer">
         <div className="flex items-center  md:space-x-2 ">
           <Image
-            src="assets/images/site-logo.svg"
+            src="/assets/images/site-logo.svg"
             height={28}
             width={28}
             alt="Site Logo"

@@ -1,5 +1,5 @@
 "use client";
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "../../ui/button";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -50,7 +50,7 @@ const AnswerForm = ({
     }
   }
   return (
-    <div className="my-4">
+    <div className="my-6">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-semibold"> Write Your Answer Here</h3>
         <Button className=" flex max-h-10 items-center gap-1 bg-zinc-100 text-orange-500 dark:text-orange-500">

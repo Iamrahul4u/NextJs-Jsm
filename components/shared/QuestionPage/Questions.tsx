@@ -169,8 +169,6 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     content_style: `body {  font-family: Arial, Inter;
                         font-size: 14px;
                         `,
-                    skin: "oxide-dark",
-                    content_css: "dark",
                   }}
                 />
                 <FormMessage />

@@ -41,7 +41,7 @@ export function SlideMenu() {
             <Link href="/" className="cursor-pointer">
               <div className="flex items-center gap-2">
                 <Image
-                  src="assets/images/site-logo.svg"
+                  src="/assets/images/site-logo.svg"
                   height={26}
                   width={26}
                   alt="Site Logo"

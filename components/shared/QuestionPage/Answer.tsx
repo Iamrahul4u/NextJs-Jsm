@@ -6,7 +6,7 @@ import { timeAgo } from "@/utlils/helperFunction";
 const Answer = ({ answer }: any) => {
   return (
     <>
-      <div className="mb-16 mt-4 rounded-md px-6 py-4 shadow-md drop-shadow-lg">
+      <div className="mb-16 mt-4 max-w-5xl rounded-md px-6 py-4 shadow-md drop-shadow-lg">
         {/* Answers Filter */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-1">
