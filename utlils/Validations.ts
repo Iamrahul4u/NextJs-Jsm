@@ -7,5 +7,5 @@ export const QuestionSchema = z.object({
 });
 
 export const AnswerSchema = z.object({
-  content: z.string().min(50).max(1500),
+  content: z.string().min(50).max(2000),
 });
