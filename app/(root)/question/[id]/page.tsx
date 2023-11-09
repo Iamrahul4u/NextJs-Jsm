@@ -61,7 +61,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           ))}
         </div>
         {/* Answers Section */}
-        {answers?.length > 0 && (
+        {(answers?.length ?? 0) > 0 && (
           <div className="mt-14 max-w-5xl">
             {/* Answers Filter */}
             <div className="flex items-center justify-between">
