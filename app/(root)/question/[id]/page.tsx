@@ -52,7 +52,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </div>
         {/* Views,times ago,answers */}
         <AnalyticsDetails
-          views={question.views.length || 0}
+          views={question.views || 0}
           answers={question.answers.length || 0}
           createdAt={question.createdAt}
         />

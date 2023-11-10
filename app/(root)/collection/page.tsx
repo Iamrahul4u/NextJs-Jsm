@@ -2,10 +2,10 @@ import Card from "@/components/shared/Card/CardComponent";
 import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { getSavedQuestions } from "@/lib/actions/user.action";
-import { auth } from "@clerk/nextjs";
+import { SignInButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Collection() {
   const { userId } = auth();
   if (!userId) return null;
   const result = await getSavedQuestions({
@@ -23,13 +23,19 @@ export default async function Home() {
         <Filter filter={AnswersFilter} />
       </div>
       <div className="mt-10 flex  flex-col gap-6">
-        {result
-          ? result?.map((question) => (
-              <Link key={question._id} href={`question/${question._id}`}>
-                <Card question={question} />
-              </Link>
-            ))
-          : "No Questions"}
+        {(result.length ?? 0) > 0 ? (
+          result?.map((question) => (
+            <Link key={question._id} href={`question/${question._id}`}>
+              <Card question={question} />
+            </Link>
+          ))
+        ) : (
+          <div className=" mt-10 flex justify-center gap-2">
+            <p className=" self-center text-3xl font-semibold">
+              No Saved Questions
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

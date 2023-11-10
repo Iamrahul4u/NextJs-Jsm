@@ -1,13 +1,14 @@
 "use client";
 import { downVoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
+import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
   downVoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
 import { saveQuestion } from "@/lib/actions/user.action";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 interface Props {
   type: string;
@@ -31,6 +32,7 @@ const Voting = ({
   hasSaved,
 }: Props) => {
   const pathname = usePathname();
+  const router = useRouter();
   const handleVote = async (action: string) => {
     if (type === "Question") {
       if (action === "upvote") {
@@ -76,6 +78,16 @@ const Voting = ({
       }
     }
   };
+
+  useEffect(() => {
+    async function view() {
+      await viewQuestion({
+        userId: userId || undefined,
+        questionId,
+      });
+    }
+    view();
+  }, [userId, questionId, pathname, router]);
 
   return (
     <div className="flex  gap-2">
