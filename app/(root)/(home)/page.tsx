@@ -26,18 +26,18 @@ export default async function Home() {
       <div className="mt-7 flex  gap-2">
         {badgeData.map((badge) => (
           <Link
-            key={badge.id}
+            key={badge._id}
             className="flex justify-between gap-2 "
-            href="/tags/65070473a39264cbbf56a279"
+            href={`/tags/${badge._id}`}
           >
-            <BadgeDemo title={badge.text} />
+            <BadgeDemo title={badge.name} />
           </Link>
         ))}
       </div>
       <div className="mt-10 flex  flex-col gap-6">
         {result
           ? result?.map((question) => (
-              <Link key={question._id} href={`question/${question._id}`}>
+              <Link key={question._id} href={`/question/${question._id}`}>
                 <Card question={question} />
               </Link>
             ))

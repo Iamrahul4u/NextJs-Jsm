@@ -13,7 +13,7 @@ interface filter {
 const Filter = ({ filter }: { filter: filter[] }) => {
   return (
     <Select>
-      <SelectTrigger className="h-[40px] w-[170px] focus:ring-1 focus:ring-gray-600 focus:ring-offset-0 ">
+      <SelectTrigger className="h-[40px] w-[190px] focus:ring-1 focus:ring-gray-600 focus:ring-offset-0 ">
         <SelectValue placeholder="Select Filter" />
       </SelectTrigger>
       <SelectContent>

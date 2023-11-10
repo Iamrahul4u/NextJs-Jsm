@@ -2,12 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BadgeDemo } from "../Badge";
-
-type Badge = {
-  id: number;
-  text: string;
-  count: number;
-};
+import { getTags } from "@/lib/actions/tags.action";
+import { ITag } from "@/database/tag.model";
 
 const topQuestions: { id: number; question: string }[] = [
   {
@@ -33,29 +29,7 @@ const topQuestions: { id: number; question: string }[] = [
   },
 ];
 
-export const badgeData: Badge[] = [
-  {
-    id: 1,
-    text: "NEXTJS",
-    count: 14,
-  },
-  {
-    id: 2,
-    text: "TEST",
-    count: 12,
-  },
-  {
-    id: 3,
-    text: "REACT",
-    count: 7,
-  },
-
-  {
-    id: 5,
-    text: "CSS",
-    count: 5,
-  },
-];
+export const badgeData: ITag[] = await getTags();
 
 const RightSideBar = () => {
   return (
@@ -91,12 +65,11 @@ const RightSideBar = () => {
         <div className="mt-7 flex flex-col gap-4">
           {badgeData.map((badge) => (
             <Link
-              key={badge.id}
+              key={badge._id}
               className="flex justify-between gap-2 "
-              href="/tags/65070473a39264cbbf56a279"
+              href={`/tags/${badge._id}`}
             >
-              <BadgeDemo title={badge.text} />
-              <p className="small-medium  ">{badge.count}</p>
+              <BadgeDemo title={badge.name} />
             </Link>
           ))}
         </div>

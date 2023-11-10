@@ -2,6 +2,7 @@ import TagsCard from "@/components/shared/Card/TagCard";
 import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { getTags } from "@/lib/actions/tags.action";
+import Link from "next/link";
 import React from "react";
 
 const Page = async () => {
@@ -18,7 +19,11 @@ const Page = async () => {
 
       <div className="mt-10 grid grid-cols-3 gap-10">
         {result ? (
-          result?.map((tag) => <TagsCard key={tag._id} tag={tag} />)
+          result?.map((tag) => (
+            <Link key={tag._id} href={`tags/${tag._id}`}>
+              <TagsCard tag={tag} />
+            </Link>
+          ))
         ) : (
           <div>No Tags Found</div>
         )}

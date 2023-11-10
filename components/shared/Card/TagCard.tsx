@@ -8,7 +8,7 @@ interface tag {
 
 const TagsCard = ({ tag }: { tag: tag }) => {
   return (
-    <div className="relative  flex flex-1 cursor-pointer flex-col items-start gap-2 overflow-hidden rounded-xl p-4 text-center  shadow-md  hover:shadow-zinc-900   hover:transition-all">
+    <div className="relative  flex flex-1 cursor-pointer flex-col items-start gap-2 overflow-hidden rounded-xl p-4 text-center  hover:transition-all  dark:shadow-md   dark:hover:shadow-zinc-900">
       <p className="rounded-sm bg-zinc-100 px-2 py-1 font-bold   dark:bg-zinc-800 dark:text-white ">
         {tag.name}
       </p>

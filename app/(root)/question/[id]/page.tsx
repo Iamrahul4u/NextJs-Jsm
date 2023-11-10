@@ -63,13 +63,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
         {/* Tags */}
         <div className="mt-2 space-x-2">
           {question?.tags?.map((tag: any) => (
-            <Badge
-              key={tag}
-              variant="outline"
-              className="cursor-pointer rounded-md  bg-zinc-100 p-1  text-xs text-gray-700 drop-shadow-md hover:bg-orange-500 hover:text-white dark:bg-white dark:text-black dark:hover:bg-orange-400 dark:hover:text-white md:px-4 md:py-2"
-            >
-              {tag.name}
-            </Badge>
+            <Link key={tag._id} href={`/tags/${tag._id}`}>
+              <Badge
+                key={tag}
+                variant="outline"
+                className="cursor-pointer rounded-md  bg-zinc-100 p-1  text-xs text-gray-700 drop-shadow-md hover:bg-orange-500 hover:text-white dark:bg-white dark:text-black dark:hover:bg-orange-400 dark:hover:text-white md:px-4 md:py-2"
+              >
+                {tag.name}
+              </Badge>
+            </Link>
           ))}
         </div>
         {/* Answers Section */}
