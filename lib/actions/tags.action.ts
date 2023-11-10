@@ -22,7 +22,7 @@ export const getQuestionByTags = async (params: GetQuestionsByTagIdParams) => {
   try {
     connectDb();
 
-    const { tagId, page = 1, pageSize = 20, searchQuery } = params;
+    const { tagId, searchQuery } = params;
 
     const TagFilter: FilterQuery<typeof Tag> = searchQuery
       ? {

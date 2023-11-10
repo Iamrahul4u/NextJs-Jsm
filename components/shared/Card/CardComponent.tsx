@@ -4,7 +4,6 @@ import React from "react";
 
 import AnalyticsDetails from "../AnalyticsDetails";
 import { BadgeDemo } from "../Badge";
-import Link from "next/link";
 
 const Card = ({ question }: any) => {
   return (

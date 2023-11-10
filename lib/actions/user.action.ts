@@ -7,13 +7,11 @@ import {
   DeleteUserParams,
   GetAllUsersParams,
   GetSavedQuestionsParams,
-  QuestionVoteParams,
   ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
 import { Question } from "@/database/question.model";
-import path from "path";
 import { FilterQuery } from "mongoose";
 import { Tag } from "@/database/tag.model";
 
@@ -108,7 +106,7 @@ export const saveQuestion = async (params: ToggleSaveQuestionParams) => {
 export const getSavedQuestions = async (params: GetSavedQuestionsParams) => {
   try {
     connectDb();
-    const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+    const { clerkId, searchQuery } = params;
 
     const query: FilterQuery<typeof Question> = searchQuery
       ? {
