@@ -11,7 +11,7 @@ const Page = async () => {
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className=" text-dark100_light900 mb-5 text-3xl font-bold">Tags</h1>
       </div>
-      <div className="mt-2 flex gap-4">
+      <div className="mt-8 flex gap-4">
         <SearchBar title={"Search Tags"} />
         <Filter filter={Tags} />
       </div>

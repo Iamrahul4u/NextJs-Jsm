@@ -20,7 +20,7 @@ export default async function Home() {
           </Button>
         </Link>
       </div>
-      <div className="mt-7">
+      <div className="mt-8">
         <SearchBar title={"Search Topics"} />
       </div>
       <div className="mt-7 flex  gap-2">

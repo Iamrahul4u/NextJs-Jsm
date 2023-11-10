@@ -12,6 +12,7 @@ import { getAnswersByQuestion } from "@/lib/actions/answer.action";
 import Filter from "@/components/shared/Filter";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Voting from "@/components/shared/QuestionPage/Voting";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { userId } = auth();
@@ -33,7 +34,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
             />
             <p className="text-base font-semibold">{question.author.name}</p>
           </div>
-          <div>Voting</div>
+
+          {/* Voting  */}
+          <Voting
+            type="Question"
+            userId={JSON.parse(JSON.stringify(mongouser._id))}
+            questionId={params.id}
+            hasupVoted={question.upvotes.includes(mongouser._id)}
+            upvotes={question.upvotes.length}
+            hasdownVoted={question.downvotes.includes(mongouser._id)}
+            downvotes={question.downvotes.length}
+            hasSaved={mongouser.saved.includes(params.id)}
+          />
         </div>
         <div>
           <h2 className="mb-2 text-2xl font-bold">{question.title}</h2>
@@ -71,7 +83,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
               <Filter filter={AnswersFilter} />
             </div>
             {answers?.map((answer) => (
-              <Answer key={answer._id} answer={answer} />
+              <Answer
+                key={answer._id}
+                answer={answer}
+                userId={JSON.parse(JSON.stringify(mongouser._id))}
+              />
             ))}
           </div>
         )}

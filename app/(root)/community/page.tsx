@@ -13,7 +13,7 @@ const Page = async () => {
           All Users
         </h1>
       </div>
-      <div className="mt-2 flex gap-2">
+      <div className="mt-8 flex gap-2">
         <SearchBar title={"Search Topics"} />
         <Filter filter={UsersFilter} />
       </div>

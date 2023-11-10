@@ -2,8 +2,9 @@ import React from "react";
 import Image from "next/image";
 import ParseHtml from "../ParseHtml";
 import { timeAgo } from "@/utlils/helperFunction";
+import Voting from "./Voting";
 
-const Answer = ({ answer }: any) => {
+const Answer = ({ answer, userId }: any) => {
   return (
     <>
       <div className="mb-16 mt-4 max-w-5xl rounded-md px-6 py-4 shadow-md drop-shadow-lg">
@@ -22,7 +23,16 @@ const Answer = ({ answer }: any) => {
               • answered {timeAgo(answer.createdAt)}
             </p>
           </div>
-          <p>Voting</p>
+          {/* <Voting /> */}
+          <Voting
+            type="Answer"
+            userId={userId}
+            questionId={JSON.parse(JSON.stringify(answer._id))}
+            hasupVoted={answer.upvotes.includes(userId)}
+            upvotes={answer.upvotes.length}
+            hasdownVoted={answer.downvotes.includes(userId)}
+            downvotes={answer.downvotes.length}
+          />
         </div>
         <ParseHtml data={answer.content} />
       </div>

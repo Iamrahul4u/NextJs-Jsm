@@ -6,10 +6,16 @@ import {
   CreateUserParams,
   DeleteUserParams,
   GetAllUsersParams,
+  GetSavedQuestionsParams,
+  QuestionVoteParams,
+  ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
 import { Question } from "@/database/question.model";
+import path from "path";
+import { FilterQuery } from "mongoose";
+import { Tag } from "@/database/tag.model";
 
 export const getUser = async (params: any) => {
   connectDb();
@@ -69,6 +75,59 @@ export const getAllUser = async (params: GetAllUsersParams) => {
     // const { path, clerkId, updateData } = params;
     const user = await User.find({});
     return user;
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const saveQuestion = async (params: ToggleSaveQuestionParams) => {
+  try {
+    connectDb();
+    const { userId, questionId, path } = params;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User Not Found");
+    }
+    const isQuestionSaved = user.saved.includes(questionId);
+    if (isQuestionSaved) {
+      await User.findByIdAndUpdate(userId, { $pull: { saved: questionId } });
+    } else {
+      await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { saved: questionId } },
+        { new: true },
+      );
+    }
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const getSavedQuestions = async (params: GetSavedQuestionsParams) => {
+  try {
+    connectDb();
+    const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+
+    const query: FilterQuery<typeof Question> = searchQuery
+      ? {
+          title: { $regex: new RegExp(searchQuery, "i") },
+        }
+      : {};
+    const user = await User.findOne({ clerkId }).populate({
+      path: "saved",
+      match: query,
+      options: {
+        sort: { createdAt: -1 },
+      },
+      populate: [
+        { path: "tags", model: Tag, select: "_id name" },
+        { path: "author", model: User, select: "_id name clerkId picture" },
+      ],
+    });
+    const savedQuestion = user.saved;
+    return savedQuestion;
   } catch (error: any) {
     console.log("error:" + error.message);
   }
