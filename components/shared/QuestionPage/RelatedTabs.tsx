@@ -1,5 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IAnswer } from "@/database/answer.model";
 import { IQuestion } from "@/database/question.model";
 import Link from "next/link";
 import React from "react";
@@ -10,8 +9,8 @@ import { SignedIn, auth } from "@clerk/nextjs";
 import EditDeleteAction from "../EditDeleteAction";
 
 interface Props {
-  questions: IQuestion[];
-  answers: IAnswer[];
+  questions: any;
+  answers: any;
   userId?: string;
 }
 const RelatedTabs = ({ questions, answers, userId }: Props) => {
@@ -39,15 +38,15 @@ const RelatedTabs = ({ questions, answers, userId }: Props) => {
 
       {/* Answers Tab */}
       <TabsContent value="Answer">
-        {answers?.map((answer) => (
+        {answers?.map((answer: any) => (
           <div
             key={answer._id}
             className="mb-6 mt-4 flex cursor-pointer flex-col justify-between"
           >
             <div className="flex items-center justify-between gap-2">
-              <Link href={`/question/${answer.question._id}`}>
+              <Link href={`/question/${answer?.question?._id}`}>
                 <h2 className="text-base font-medium">
-                  {answer.question.title}
+                  {answer.question!.title!}
                 </h2>
               </Link>
 
