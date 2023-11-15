@@ -37,9 +37,7 @@ export default async function Home() {
       <div className="mt-10 flex  flex-col gap-6">
         {result
           ? result?.map((question) => (
-              <Link key={question._id} href={`/question/${question._id}`}>
-                <Card question={question} />
-              </Link>
+              <Card question={question} key={question._id} />
             ))
           : "No Questions"}
       </div>

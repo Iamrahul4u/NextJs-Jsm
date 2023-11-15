@@ -2,7 +2,7 @@ import { model, Schema, Document, models } from "mongoose";
 import { User } from "./user.model";
 import { Question } from "./question.model";
 
-interface IAnswer extends Document {
+export interface IAnswer extends Document {
   question: string;
   content: string;
   author: Schema.Types.ObjectId;

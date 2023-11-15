@@ -20,21 +20,32 @@ import * as z from "zod";
 import React, { useRef, useState } from "react";
 import process from "process";
 import { X } from "lucide-react";
-import { postQuestion } from "@/lib/actions/question.action";
+import {
+  postQuestion,
+  updateQuestionById,
+} from "@/lib/actions/question.action";
 import { useRouter } from "next/navigation";
 
-const type: any = "create";
-
-const Questions = ({ mongoUser }: { mongoUser: string }) => {
+interface Props {
+  mongoUser: string;
+  questionDetails?: string;
+  type?: string;
+}
+const Questions = ({ mongoUser, questionDetails, type }: Props) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const router = useRouter();
   const editorRef = useRef(null);
+  const defaultValues = questionDetails
+    ? JSON.parse(questionDetails as string)
+    : "";
+
+  const groupedTags = defaultValues.tags.map((tag) => tag.name);
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: "",
+      title: defaultValues.title,
       content: "",
-      tags: [],
+      tags: groupedTags || [],
     },
   });
 
@@ -71,18 +82,27 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
       }
     }
   };
-
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     try {
       setSubmitting(true);
-      await postQuestion({
-        title: values.title!,
-        content: values.content,
-        tags: values.tags,
-        author: JSON.parse(mongoUser),
-        path: "/",
-      });
+      if (type === "Edit") {
+        await updateQuestionById({
+          title: values.title!,
+          content: values.content,
+          path: `question/${defaultValues._id}`,
+          questionId: defaultValues._id,
+        });
+        router.push(`question/${defaultValues._id}`);
+      } else {
+        await postQuestion({
+          title: values.title!,
+          content: values.content,
+          tags: values.tags,
+          author: JSON.parse(mongoUser),
+          path: "/",
+        });
+      }
       router.push("/");
     } catch (error) {
     } finally {
@@ -140,7 +160,7 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                     // @ts-ignore
                     field.onChange(content);
                   }}
-                  initialValue=""
+                  initialValue={defaultValues.content || ""}
                   init={{
                     height: 500,
                     menubar: false,
@@ -183,6 +203,7 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                 <FormLabel className="text-base">Tags</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={type === "Edit"}
                     onKeyDown={(e) => handleTags(e, field)}
                     className="w-full rounded-md border-2 border-gray-400 p-2"
                   />
@@ -195,12 +216,14 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
                         className="flex items-center gap-2 rounded-sm bg-slate-200 p-2 text-sm dark:bg-white dark:text-black "
                       >
                         {item}
-                        <X
-                          color="gray"
-                          size={18}
-                          className="cursor-pointer"
-                          onClick={() => deleteTag(item, field)}
-                        />
+                        {type !== "Edit" && (
+                          <X
+                            color="gray"
+                            size={18}
+                            className="cursor-pointer"
+                            onClick={() => deleteTag(item, field)}
+                          />
+                        )}
                       </p>
                     ))}
                   </div>
@@ -216,9 +239,9 @@ const Questions = ({ mongoUser }: { mongoUser: string }) => {
 
           <Button type="submit">
             {isSubmitting ? (
-              <>{type === "edit" ? "Editing.." : "Posting..."}</>
+              <>{type === "Edit" ? "Editing.." : "Posting..."}</>
             ) : (
-              <>{type === "edit" ? "Edit" : "Ask a Question"}</>
+              <>{type === "Edit" ? "Edit" : "Ask a Question"}</>
             )}
           </Button>
         </form>

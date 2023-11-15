@@ -14,7 +14,7 @@ const Page = async () => {
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="mb-4 text-2xl font-bold">Ask Question</h1>
       </div>
-      <Questions mongoUser={JSON.stringify(mongoUser?._id)} />
+      <Questions type="Create" mongoUser={JSON.stringify(mongoUser?._id)} />
     </>
   );
 };

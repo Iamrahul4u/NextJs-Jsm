@@ -4,27 +4,52 @@ import React from "react";
 
 import AnalyticsDetails from "../AnalyticsDetails";
 import { BadgeDemo } from "../Badge";
+import { IQuestion } from "@/database/question.model";
+import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "../EditDeleteAction";
+import Link from "next/link";
 
-const Card = ({ question }: any) => {
+interface Props {
+  question: IQuestion;
+  userId?: string;
+  clerkId?: string;
+}
+const Card = ({ question, userId, clerkId }: Props) => {
+  const showActionButtons = userId && clerkId && userId === clerkId;
   return (
-    <div className="mb-4 max-w-2xl cursor-pointer rounded-lg p-4 shadow-md dark:bg-zinc-800">
-      <div className="flex items-start md:items-center">
-        <div className="mr-4 hidden md:block">
-          <Image
-            src={question.author.picture}
-            alt={question.title}
-            height={42}
-            width={42}
-            className=" rounded-full object-cover "
-          />
+    <div className="mb-4 max-w-4xl  cursor-pointer rounded-lg p-4 shadow-md dark:bg-zinc-800">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start  md:items-center">
+          <div className="mr-4 hidden md:block ">
+            <Image
+              src={question.author.picture}
+              alt={question.title}
+              height={42}
+              width={42}
+              className=" rounded-full object-cover "
+            />
+          </div>
+          <div>
+            <Link key={question._id} href={`/question/${question._id}`}>
+              <h2 className="line-clamp-1 text-xl font-semibold">
+                {question.title}
+              </h2>
+            </Link>
+            <p className="text-gray-600">{question.author.name}</p>
+            <p className="text-sm text-gray-500">
+              {timeAgo(question.createdAt)}
+            </p>
+          </div>
         </div>
-        <div>
-          <h2 className="line-clamp-1 text-xl font-semibold">
-            {question.title}
-          </h2>
-          <p className="text-gray-600">{question.author.name}</p>
-          <p className="text-sm text-gray-500">{timeAgo(question.createdAt)}</p>
-        </div>
+
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction
+              type="Question"
+              itemId={JSON.parse(JSON.stringify(question._id))}
+            />
+          )}
+        </SignedIn>
       </div>
 
       <div className="mt-4 flex-col justify-between md:flex md:flex-row">

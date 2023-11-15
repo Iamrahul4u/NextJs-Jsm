@@ -6,10 +6,13 @@ import { Tag } from "@/database/tag.model";
 import { User } from "@/database/user.model";
 import {
   CreateQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   QuestionVoteParams,
 } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
+import { Answer } from "@/database/answer.model";
+import { Interaction } from "@/database/interaction.model";
 
 export const getQuestions = async () => {
   connectDb();
@@ -116,6 +119,59 @@ export const downVoteQuestion = async (params: QuestionVoteParams) => {
       new: true,
     });
     if (!question) throw new Error("QUestion Not Found");
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const getQuestionByUserId = async (params: any) => {
+  connectDb();
+  try {
+    const { userId } = params;
+    console.log(userId);
+    const user = await Question.find({ author: userId }).populate({
+      path: "author",
+      model: User,
+    });
+    console.log(user);
+
+    return user;
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const deleteQuestionById = async (params: {
+  questionId: string;
+  path: string;
+}) => {
+  connectDb();
+  try {
+    const { questionId, path } = params;
+    await Question.findByIdAndDelete({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } },
+    );
+    await Interaction.deleteMany({ question: questionId });
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const updateQuestionById = async (params: EditQuestionParams) => {
+  connectDb();
+  try {
+    const { questionId, title, content, path } = params;
+    await Question.findByIdAndUpdate(
+      { _id: questionId },
+      { title, content },
+      { new: true },
+    );
+
     revalidatePath(path);
   } catch (error: any) {
     console.log("error:" + error.message);

@@ -1,4 +1,4 @@
-export function timeAgo(dateTimeString: string): string {
+export function timeAgo(dateTimeString: Date): string {
   const now = new Date();
   const date = new Date(dateTimeString);
 
@@ -25,4 +25,28 @@ export function timeAgo(dateTimeString: string): string {
 
   const weeks = Math.floor(days / 7);
   return `${weeks} ${weeks === 1 ? "week" : "weeks"} ago`;
+}
+
+export function convertDateFormat(inputDate: string): string {
+  const date = new Date(inputDate);
+
+  const monthNames: string[] = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month: string = monthNames[date.getMonth()];
+  const year: number = date.getFullYear();
+
+  return `Joined ${month} ${year}`;
 }

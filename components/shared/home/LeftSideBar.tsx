@@ -1,22 +1,31 @@
 "use client";
 import { sidebarLinks } from "@/constants/sidebarLinks";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "../../ui/button";
 
 const LeftSideBar = () => {
+  const { userId } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   return (
     <main className="custom-scrollbar shadow-light-300 sticky  top-0 flex  h-screen w-[266px] flex-col gap-6 overflow-y-auto p-6 pb-10 pt-24  shadow-none dark:bg-zinc-900 dark:shadow-none max-md:hidden md:w-max">
       <div className=" grid gap-8  px-2 py-1">
         {sidebarLinks.map((item) => {
           const isactive =
-            pathname === item.route && pathname.includes(item.route)
-              ? "active"
-              : "";
+            (item.route.length > 1 && pathname.includes(item.route)) ||
+            pathname === item.route;
+          if (item.route === "/profile") {
+            if (userId) {
+              item.route = `${item.route}/${userId}`;
+            } else {
+              router.push("/sign-up");
+            }
+          }
+
           return (
             <Link
               href={item.route}

@@ -7,6 +7,7 @@ import {
   DeleteUserParams,
   GetAllUsersParams,
   GetSavedQuestionsParams,
+  GetUserByIdParams,
   ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "../sharedtypes/sharedtypes";
@@ -14,6 +15,7 @@ import { revalidatePath } from "next/cache";
 import { Question } from "@/database/question.model";
 import { FilterQuery } from "mongoose";
 import { Tag } from "@/database/tag.model";
+import { Answer } from "@/database/answer.model";
 
 export const getUser = async (params: any) => {
   connectDb();
@@ -73,6 +75,32 @@ export const getAllUser = async (params: GetAllUsersParams) => {
     // const { path, clerkId, updateData } = params;
     const user = await User.find({});
     return user;
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+
+export const getUserInfo = async (params: GetUserByIdParams) => {
+  try {
+    connectDb();
+
+    const { userId } = params;
+    const user = await User.findOne({ clerkId: userId });
+    if (!user) throw new Error("User Not Found");
+    const questions = await Question.find({ author: user._id }).populate([
+      { path: "author", model: User },
+      { path: "tags", model: Tag },
+    ]);
+    const answers = await Answer.find({ author: user._id })
+      .select("_id upvotes")
+      .populate([
+        { path: "question", model: Question, select: "_id title createdAt" },
+        { path: "author", model: User, select: "_id name picture" },
+      ]);
+    const answersCount = await Answer.countDocuments({ author: user._id });
+    console.log(answersCount);
+    const questionsCount = await Question.countDocuments({ author: user._id });
+    return { answersCount, questionsCount, user, questions, answers };
   } catch (error: any) {
     console.log("error:" + error.message);
   }
