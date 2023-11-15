@@ -1,4 +1,4 @@
-export function timeAgo(dateTimeString: Date): string {
+export function timeAgo(dateTimeString: string): string {
   const now = new Date();
   const date = new Date(dateTimeString);
 
