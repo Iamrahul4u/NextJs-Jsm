@@ -3,10 +3,9 @@ import Image from "next/image";
 import ParseHtml from "../ParseHtml";
 import { timeAgo } from "@/utlils/helperFunction";
 import Voting from "./Voting";
-import { IAnswer } from "@/database/answer.model";
 
 interface Props {
-  answer: IAnswer;
+  answer: any;
   userId?: string;
 }
 const Answer = ({ answer, userId }: Props) => {
