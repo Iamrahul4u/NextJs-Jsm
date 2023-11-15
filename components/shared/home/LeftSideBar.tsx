@@ -3,7 +3,7 @@ import { sidebarLinks } from "@/constants/sidebarLinks";
 import { SignedOut, useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { Button } from "../../ui/button";
 
