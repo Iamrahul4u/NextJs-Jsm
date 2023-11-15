@@ -22,7 +22,7 @@ const LeftSideBar = () => {
             if (userId) {
               item.route = `${item.route}/${userId}`;
             } else {
-              router.push("/sign-up");
+              return null;
             }
           }
 
