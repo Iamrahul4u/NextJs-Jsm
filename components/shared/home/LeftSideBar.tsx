@@ -10,7 +10,6 @@ import { Button } from "../../ui/button";
 const LeftSideBar = () => {
   const { userId } = useAuth();
   const pathname = usePathname();
-  const router = useRouter();
   return (
     <main className="custom-scrollbar shadow-light-300 sticky  top-0 flex  h-screen w-[266px] flex-col gap-6 overflow-y-auto p-6 pb-10 pt-24  shadow-none dark:bg-zinc-900 dark:shadow-none max-md:hidden md:w-max">
       <div className=" grid gap-8  px-2 py-1">
