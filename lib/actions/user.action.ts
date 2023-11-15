@@ -80,7 +80,7 @@ export const getAllUser = async (params: GetAllUsersParams) => {
   }
 };
 
-export const getUserInfo = async (params: GetUserByIdParams): any => {
+export const getUserInfo = async (params: GetUserByIdParams): Promise<any> => {
   try {
     connectDb();
 
