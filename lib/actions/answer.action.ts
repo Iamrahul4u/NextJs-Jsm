@@ -9,7 +9,6 @@ import {
 import { revalidatePath } from "next/cache";
 import { Question } from "@/database/question.model";
 import { User } from "@/database/user.model";
-import { Tag } from "@/database/tag.model";
 import { Interaction } from "@/database/interaction.model";
 
 export const postAnswer = async (params: CreateAnswerParams) => {
