@@ -4,13 +4,12 @@ import React from "react";
 
 import AnalyticsDetails from "../AnalyticsDetails";
 import { BadgeDemo } from "../Badge";
-import { IQuestion } from "@/database/question.model";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../EditDeleteAction";
 import Link from "next/link";
 
 interface Props {
-  question: IQuestion;
+  question: any;
   userId?: string;
   clerkId?: string;
 }
