@@ -39,11 +39,13 @@ const Questions = ({ mongoUser, questionDetails, type }: Props) => {
     ? JSON.parse(questionDetails as string)
     : "";
 
-  const groupedTags = defaultValues.tags.map((tag: any) => tag.name);
+  const groupedTags = defaultValues
+    ? defaultValues.tags.map((tag: any) => tag.name)
+    : [];
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: defaultValues.title,
+      title: defaultValues.title || "",
       content: "",
       tags: groupedTags || [],
     },
@@ -104,7 +106,7 @@ const Questions = ({ mongoUser, questionDetails, type }: Props) => {
         });
       }
       router.push("/");
-    } catch (error) {
+    } catch (error: any) {
     } finally {
       setSubmitting(false);
     }

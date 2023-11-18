@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 
 interface Props {
   type: string;
-  userId: string;
+  userId?: string;
   questionId: string;
   hasupVoted: boolean;
   hasdownVoted: boolean;

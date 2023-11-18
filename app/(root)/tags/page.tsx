@@ -2,11 +2,15 @@ import TagsCard from "@/components/shared/Card/TagCard";
 import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { getTags } from "@/lib/actions/tags.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
 
-const Page = async () => {
-  const result = await getTags();
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getTags({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">

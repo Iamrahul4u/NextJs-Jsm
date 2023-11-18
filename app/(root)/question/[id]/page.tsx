@@ -13,12 +13,22 @@ import Filter from "@/components/shared/Filter";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Voting from "@/components/shared/QuestionPage/Voting";
+import { SearchParamsProps } from "@/types";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: SearchParamsProps;
+}) => {
   const { userId } = auth();
   const mongouser = await getUser({ userId });
   const question = await getQuestionById({ id: params.id });
-  const answers = await getAnswersByQuestion({ questionId: params.id });
+  const answers = await getAnswersByQuestion({
+    questionId: params.id,
+    filter: searchParams.filter,
+  });
   return (
     <>
       <div className="-mt-18">
@@ -36,16 +46,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
           </div>
 
           {/* Voting  */}
-          <Voting
-            type="Question"
-            userId={JSON.parse(JSON.stringify(mongouser._id))}
-            questionId={params.id}
-            hasupVoted={question.upvotes.includes(mongouser._id)}
-            upvotes={question.upvotes.length}
-            hasdownVoted={question.downvotes.includes(mongouser._id)}
-            downvotes={question.downvotes.length}
-            hasSaved={mongouser.saved.includes(params.id)}
-          />
+          {mongouser._id && (
+            <Voting
+              type="Question"
+              userId={JSON.parse(JSON.stringify(mongouser._id)) || ""}
+              questionId={params.id}
+              hasupVoted={question.upvotes.includes(mongouser._id)}
+              upvotes={question.upvotes.length}
+              hasdownVoted={question.downvotes.includes(mongouser._id)}
+              downvotes={question.downvotes.length}
+              hasSaved={mongouser.saved.includes(params.id)}
+            />
+          )}
         </div>
         <div>
           <h2 className="mb-2 text-2xl font-bold">{question.title}</h2>

@@ -6,7 +6,7 @@ import Card from "../Card/CardComponent";
 import Image from "next/image";
 import { timeAgo } from "@/utlils/helperFunction";
 import { SignedIn, auth } from "@clerk/nextjs";
-import EditDeleteAction from "../EditDeleteAction";
+import EditDeleteAction from "../Profile/EditDeleteAction";
 
 interface Props {
   questions: any;

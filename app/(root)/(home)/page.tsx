@@ -1,13 +1,16 @@
-import { BadgeDemo } from "@/components/shared/Badge";
 import Card from "@/components/shared/Card/CardComponent";
-import { badgeData } from "@/components/shared/home/RightSideBar";
 import SearchBar from "@/components/shared/SearchBar";
+import HomePageFilter from "@/components/shared/home/HomePageFilter";
 import { Button } from "@/components/ui/button";
 import { getQuestions } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-export default async function Home() {
-  const result = await getQuestions();
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -23,17 +26,7 @@ export default async function Home() {
       <div className="mt-8">
         <SearchBar title={"Search Topics"} />
       </div>
-      <div className="mt-7 flex  gap-2">
-        {badgeData.map((badge) => (
-          <Link
-            key={badge._id}
-            className="flex justify-between gap-2 "
-            href={`/tags/${badge._id}`}
-          >
-            <BadgeDemo title={badge.name} />
-          </Link>
-        ))}
-      </div>
+      <HomePageFilter />
       <div className="mt-10 flex  flex-col gap-6">
         {result
           ? result?.map((question) => (

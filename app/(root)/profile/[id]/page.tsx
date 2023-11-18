@@ -1,5 +1,5 @@
 import RelatedTabs from "@/components/shared/QuestionPage/RelatedTabs";
-import Stats from "@/components/shared/Stats";
+import Stats from "@/components/shared/Profile/Stats";
 import { getUserInfo } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
 import { convertDateFormat } from "@/utlils/helperFunction";

@@ -1,4 +1,4 @@
-import ProfileForm from "@/components/shared/ProfileForm";
+import ProfileForm from "@/components/shared/Profile/ProfileForm";
 import { getUser } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import React from "react";

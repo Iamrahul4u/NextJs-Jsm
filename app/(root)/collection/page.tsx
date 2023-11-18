@@ -3,14 +3,17 @@ import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { IQuestion } from "@/database/question.model";
 import { getSavedQuestions } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default async function Collection() {
+export default async function Collection({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
   if (!userId) return null;
   const result = await getSavedQuestions({
     clerkId: userId,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
   return (
     <>

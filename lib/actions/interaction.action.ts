@@ -26,5 +26,5 @@ export const viewQuestion = async (params: ViewQuestionParams) => {
         });
       }
     }
-  } catch (error) {}
+  } catch (error: any) {}
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "../DarkModeToggle";
+import { ModeToggle } from "./DarkModeToggle";
 import Link from "next/link";
 import { SlideMenu } from "./SlideMenu";
-import SearchBar from "../SearchBar";
+import GlobalSearchBar from "./GlobalSearchBar";
 
 const Navbar = () => {
   return (
@@ -24,7 +24,7 @@ const Navbar = () => {
         </div>
       </Link>
       <div className=" flex w-1/2 justify-center">
-        <SearchBar title={"Search Globally"} />
+        <GlobalSearchBar title={"Search Globally"} />
       </div>
       <div className="focus-visible:none flex items-center space-x-4">
         <ModeToggle />

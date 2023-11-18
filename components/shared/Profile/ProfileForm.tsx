@@ -14,7 +14,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ProfileSchema } from "@/utlils/Validations";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "../../ui/textarea";
 import { updateUser } from "@/lib/actions/user.action";
 import { usePathname, useRouter } from "next/navigation";
 

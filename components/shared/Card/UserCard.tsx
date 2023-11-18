@@ -17,8 +17,7 @@ const UserCard = ({ user }: { user: user }) => {
         width={102}
         height={102}
         alt="User_profile_image"
-        objectFit="contain"
-        className="mx-auto mb-4 rounded-full "
+        className="mx-auto mb-4 rounded-full object-contain"
       />
       <div>
         <h1 className="font-semibold text-gray-700">{user.name}</h1>

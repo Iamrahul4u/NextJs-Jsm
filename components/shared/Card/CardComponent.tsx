@@ -5,7 +5,7 @@ import React from "react";
 import AnalyticsDetails from "../AnalyticsDetails";
 import { BadgeDemo } from "../Badge";
 import { SignedIn } from "@clerk/nextjs";
-import EditDeleteAction from "../EditDeleteAction";
+import EditDeleteAction from "../Profile/EditDeleteAction";
 import Link from "next/link";
 
 interface Props {
@@ -56,7 +56,7 @@ const Card = ({ question, userId, clerkId }: Props) => {
         <AnalyticsDetails
           views={question.views || 0}
           answers={question.answers.length || 0}
-          votes={question.votes || 0}
+          votes={question.upvotes.length || 0}
         />
         <div className="mt-2 space-x-2">
           {question?.tags?.map((tag: any) => (

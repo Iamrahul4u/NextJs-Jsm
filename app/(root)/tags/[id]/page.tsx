@@ -3,10 +3,21 @@ import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { IQuestion } from "@/database/question.model";
 import { getQuestionByTags } from "@/lib/actions/tags.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-export default async function Tag({ params }: { params: { id: string } }) {
-  const result = await getQuestionByTags({ tagId: params.id });
+export default async function Tag({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: SearchParamsProps;
+}) {
+  const result = await getQuestionByTags({
+    tagId: params.id,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -38,6 +49,10 @@ export default async function Tag({ params }: { params: { id: string } }) {
 }
 
 const AnswersFilter = [
+  {
+    id: "5",
+    label: "Most Viewed",
+  },
   {
     id: "1",
     label: "Highest Upvotes",

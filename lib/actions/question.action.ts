@@ -8,19 +8,44 @@ import {
   CreateQuestionParams,
   EditQuestionParams,
   GetQuestionByIdParams,
+  GetQuestionsParams,
   QuestionVoteParams,
 } from "../sharedtypes/sharedtypes";
 import { revalidatePath } from "next/cache";
 import { Answer } from "@/database/answer.model";
 import { Interaction } from "@/database/interaction.model";
+import { FilterQuery } from "mongoose";
 
-export const getQuestions = async () => {
+export const getQuestions = async (params: GetQuestionsParams) => {
   connectDb();
   try {
-    const questions = await Question.find({})
+    const { searchQuery, filter } = params;
+    const query: FilterQuery<typeof Question> = {};
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+    let sortOptions = {};
+    switch (filter) {
+      case "newest":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "frequent":
+        sortOptions = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+        break;
+
+      default:
+        break;
+    }
+    const questions = await Question.find(query)
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
-      .sort({ createdAt: -1 });
+      .sort(sortOptions);
     return questions;
   } catch (error: any) {
     throw new Error(error);
@@ -129,12 +154,10 @@ export const getQuestionByUserId = async (params: any) => {
   connectDb();
   try {
     const { userId } = params;
-    console.log(userId);
     const user = await Question.find({ author: userId }).populate({
       path: "author",
       model: User,
     });
-    console.log(user);
 
     return user;
   } catch (error: any) {
@@ -173,6 +196,17 @@ export const updateQuestionById = async (params: EditQuestionParams) => {
     );
 
     revalidatePath(path);
+  } catch (error: any) {
+    console.log("error:" + error.message);
+  }
+};
+export const getHotQuestions = async () => {
+  try {
+    connectDb();
+    const questions = await Question.find({}, "_id title")
+      .sort({ views: -1 })
+      .limit(10);
+    return questions;
   } catch (error: any) {
     console.log("error:" + error.message);
   }
