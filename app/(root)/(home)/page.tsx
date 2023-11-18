@@ -1,4 +1,5 @@
 import Card from "@/components/shared/Card/CardComponent";
+import Pagination from "@/components/shared/Pagination";
 import SearchBar from "@/components/shared/SearchBar";
 import HomePageFilter from "@/components/shared/home/HomePageFilter";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             ))
           : "No Questions"}
       </div>
+      <Pagination />
     </>
   );
 }
