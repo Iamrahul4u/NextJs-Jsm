@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { RemoveUrlQuery, formUrlQuery } from "@/lib/utils";
+import { formUrlQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
