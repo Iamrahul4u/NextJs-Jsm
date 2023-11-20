@@ -7,7 +7,6 @@ import { BadgeDemo } from "../Badge";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../Profile/EditDeleteAction";
 import Link from "next/link";
-import Toast from "../Toast";
 
 interface Props {
   question: any;

@@ -33,7 +33,6 @@ interface Props {
 }
 const Questions = ({ mongoUser, questionDetails, type }: Props) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
-  const [issuccess, setsuccess] = useState<boolean>(false);
   const router = useRouter();
   const editorRef = useRef(null);
   const defaultValues = questionDetails
@@ -98,7 +97,6 @@ const Questions = ({ mongoUser, questionDetails, type }: Props) => {
           questionId: defaultValues._id,
         });
         router.push(`question/${defaultValues._id}`);
-        setsuccess(true);
       } else {
         await postQuestion({
           title: values.title!,
@@ -107,13 +105,11 @@ const Questions = ({ mongoUser, questionDetails, type }: Props) => {
           author: JSON.parse(mongoUser),
           path: "/",
         });
-        setsuccess(true);
       }
       router.push("/");
     } catch (error: any) {
     } finally {
       setSubmitting(false);
-      setsuccess(false);
     }
   }
   function deleteTag(
