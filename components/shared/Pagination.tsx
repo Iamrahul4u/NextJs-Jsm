@@ -26,7 +26,7 @@ const Pagination = ({ pageNum, isNext }: Props) => {
       <ul className="flex items-center justify-center">
         <Button
           disabled={pageNum === 1}
-          className="mx-1 flex   items-center justify-center rounded-md border bg-slate-100  px-3.5 py-2  text-sm text-black transition duration-150 ease-in-out hover:bg-slate-200 disabled:cursor-not-allowed "
+          className=" mx-1   flex items-center justify-center rounded-md border  bg-slate-100 px-3.5 py-2 text-sm text-black transition duration-150 ease-in-out hover:bg-slate-200 disabled:cursor-not-allowed dark:bg-white dark:text-black"
           aria-label="Previous"
           onClick={() => handlePage("prev")}
         >

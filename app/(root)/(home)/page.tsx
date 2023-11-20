@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <SearchBar title={"Search Topics"} />
       </div>
       <HomePageFilter />
-      <div className="mt-10 flex  flex-col gap-6">
+      <div className="mt-10 flex   flex-col gap-6">
         {result
           ? result?.questions?.map((question) => (
               <Card question={question} key={question._id} />
@@ -37,10 +37,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           : "No Questions"}
       </div>
       <div className="mt-10">
-        <Pagination
-          pageNum={searchParams.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        {result.isNext && (
+          <Pagination
+            pageNum={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
+        )}
       </div>
     </>
   );

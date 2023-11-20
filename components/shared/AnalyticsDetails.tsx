@@ -10,30 +10,34 @@ interface Props {
 }
 const AnalyticsDetails = (question: Props) => {
   return (
-    <div className="my-2 flex items-center gap-3">
+    <div className="my-2 mb-10 flex items-center gap-3 ">
       {question.votes! >= 0 ? (
-        <span className=" flex gap-1 text-sm text-gray-600">
+        <span className=" flex gap-1 text-sm text-gray-600 ">
           <Image
             src="/assets/icons/like.svg"
             height={18}
             width={18}
             alt="likes"
           />
-          <p className="flex text-xs md:text-sm">{question.votes} Votes</p>
+          <p className="flex text-xs dark:text-gray-300 md:text-sm">
+            {question.votes} Votes
+          </p>
         </span>
       ) : (
         ""
       )}
 
       {question.answers! >= 0 ? (
-        <span className=" flex gap-1 text-sm text-gray-600">
+        <span className=" flex gap-1 text-sm text-gray-600 ">
           <Image
             src="/assets/icons/message.svg"
             height={18}
             width={18}
             alt="likes"
           />
-          <p className="flex text-xs md:text-sm">{question.answers} Answers</p>
+          <p className="flex text-xs dark:text-gray-300 md:text-sm">
+            {question.answers} Answers
+          </p>
         </span>
       ) : (
         ""
@@ -46,7 +50,9 @@ const AnalyticsDetails = (question: Props) => {
             width={18}
             alt="likes"
           />
-          <p className="flex text-xs md:text-sm">{question.views} Views</p>
+          <p className="flex text-xs dark:text-gray-300 md:text-sm">
+            {question.views} Views
+          </p>
         </span>
       ) : (
         ""
@@ -59,7 +65,9 @@ const AnalyticsDetails = (question: Props) => {
             width={18}
             alt="likes"
           />
-          <p className="text-sm text-gray-500">{timeAgo(question.createdAt)}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">
+            {timeAgo(question.createdAt)}
+          </p>
         </span>
       ) : (
         ""

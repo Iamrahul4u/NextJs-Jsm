@@ -7,6 +7,7 @@ import { BadgeDemo } from "../Badge";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../Profile/EditDeleteAction";
 import Link from "next/link";
+import Toast from "../Toast";
 
 interface Props {
   question: any;
@@ -30,7 +31,10 @@ const Card = ({ question, userId, clerkId }: Props) => {
           </div>
           <div>
             <Link key={question._id} href={`/question/${question._id}`}>
-              <h2 className="line-clamp-1 text-xl font-semibold">
+              <h2
+                className="line-clamp-1 text-xl max-sm:text-[#66bcec]
+md:font-semibold"
+              >
                 {question.title}
               </h2>
             </Link>
