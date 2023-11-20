@@ -23,7 +23,7 @@ const Navbar = () => {
           </p>
         </div>
       </Link>
-      <div className=" flex w-1/2 justify-center">
+      <div className=" flex w-1/2 flex-col justify-center">
         <GlobalSearchBar title={"Search Globally"} />
       </div>
       <div className="focus-visible:none flex items-center space-x-4">

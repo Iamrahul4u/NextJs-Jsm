@@ -4,6 +4,12 @@ export const themes = [
   { value: "dark", label: "Dark", icon: "/assets/icons/moon.svg" },
   { value: "system", label: "System", icon: "/assets/icons/computer.svg" },
 ];
+export const globalFilters = [
+  { value: "question", label: "Question" },
+  { value: "answer", label: "Answer" },
+  { value: "tag", label: "Tag" },
+  { value: "user", label: "User" },
+];
 export const sidebarLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/home.svg",

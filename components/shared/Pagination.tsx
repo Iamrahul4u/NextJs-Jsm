@@ -1,52 +1,51 @@
 "use client";
+import { formUrlQuery } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import { Button } from "../ui/button";
 
-const Pagination = () => {
+interface Props {
+  pageNum: number;
+  isNext: boolean;
+}
+const Pagination = ({ pageNum, isNext }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  function handlePage(instruction: string) {
+    const nextPage = instruction === "prev" ? pageNum - 1 : pageNum + 1;
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: "page",
+      value: nextPage.toString(),
+    });
+    router.push(newUrl, { scroll: false });
+  }
+
   return (
     <nav>
-      <ul className="flex">
+      <ul className="flex items-center justify-center">
+        <Button
+          disabled={pageNum === 1}
+          className="mx-1 flex   items-center justify-center rounded-md border bg-slate-100  px-3.5 py-2  text-sm text-black transition duration-150 ease-in-out hover:bg-slate-200 disabled:cursor-not-allowed "
+          aria-label="Previous"
+          onClick={() => handlePage("prev")}
+        >
+          <span className="material-icons text-sm">Prev</span>
+        </Button>
         <li>
-          <a
-            className="border-blue-gray-100 text-blue-gray-500 hover:bg-light-300 mx-1 flex h-9 w-9 items-center justify-center rounded-full border bg-transparent p-0 text-sm transition duration-150 ease-in-out"
-            href="#"
-            aria-label="Previous"
-          >
-            <span className="material-icons text-sm">keyboard_arrow_left</span>
-          </a>
+          <button className="mx-1 flex h-8 w-8 items-center justify-center rounded-md  bg-orange-500  text-sm text-white shadow-md transition duration-150 ease-in-out">
+            {pageNum}
+          </button>
         </li>
-        <li>
-          <a
-            className="mx-1 flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 p-0 text-sm text-white shadow-md transition duration-150 ease-in-out"
-            href="#"
-          >
-            1
-          </a>
-        </li>
-        <li>
-          <a
-            className="border-blue-gray-100 text-blue-gray-500 hover:bg-light-300 mx-1 flex h-9 w-9 items-center justify-center rounded-full border bg-transparent p-0 text-sm transition duration-150 ease-in-out"
-            href="#"
-          >
-            2
-          </a>
-        </li>
-        <li>
-          <a
-            className="border-blue-gray-100 text-blue-gray-500 hover:bg-light-300 mx-1 flex h-9 w-9 items-center justify-center rounded-full border bg-transparent p-0 text-sm transition duration-150 ease-in-out"
-            href="#"
-          >
-            3
-          </a>
-        </li>
-        <li>
-          <a
-            className="border-blue-gray-100 text-blue-gray-500 hover:bg-light-300 mx-1 flex h-9 w-9 items-center justify-center rounded-full border bg-transparent p-0 text-sm transition duration-150 ease-in-out"
-            href="#"
-            aria-label="Next"
-          >
-            <span className="material-icons text-sm">keyboard_arrow_right</span>
-          </a>
-        </li>
+
+        <Button
+          disabled={!isNext}
+          className="mx-1 flex  items-center justify-center rounded-md border bg-slate-100  px-3.5 py-2  text-sm text-black transition duration-150 ease-in-out hover:bg-slate-200 disabled:cursor-not-allowed "
+          aria-label="Next"
+          onClick={() => handlePage("next")}
+        >
+          Next
+        </Button>
       </ul>
     </nav>
   );

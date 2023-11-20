@@ -7,21 +7,15 @@ import { getQuestionById } from "@/lib/actions/question.action";
 import Image from "next/image";
 import React from "react";
 import { getUser } from "@/lib/actions/user.action";
-import { auth } from "@clerk/nextjs";
+import { SignedIn, auth } from "@clerk/nextjs";
 import { getAnswersByQuestion } from "@/lib/actions/answer.action";
 import Filter from "@/components/shared/Filter";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Voting from "@/components/shared/QuestionPage/Voting";
-import { SearchParamsProps } from "@/types";
+import { URLProps } from "@/types";
 
-const Page = async ({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: SearchParamsProps;
-}) => {
+const Page = async ({ params, searchParams }: URLProps) => {
   const { userId } = auth();
   const mongouser = await getUser({ userId });
   const question = await getQuestionById({ id: params.id });
@@ -46,18 +40,20 @@ const Page = async ({
           </div>
 
           {/* Voting  */}
-          {mongouser._id && (
+          <SignedIn>
             <Voting
               type="Question"
-              userId={JSON.parse(JSON.stringify(mongouser._id)) || ""}
+              userId={mongouser && JSON.parse(JSON.stringify(mongouser?._id))}
               questionId={params.id}
-              hasupVoted={question.upvotes.includes(mongouser._id)}
+              hasupVoted={question.upvotes.includes(mongouser?._id) || false}
               upvotes={question.upvotes.length}
-              hasdownVoted={question.downvotes.includes(mongouser._id)}
+              hasdownVoted={
+                question.downvotes.includes(mongouser?._id) || false
+              }
               downvotes={question.downvotes.length}
-              hasSaved={mongouser.saved.includes(params.id)}
+              hasSaved={mongouser?.saved.includes(params.id)}
             />
-          )}
+          </SignedIn>
         </div>
         <div>
           <h2 className="mb-2 text-2xl font-bold">{question.title}</h2>
@@ -100,14 +96,14 @@ const Page = async ({
               <Answer
                 key={answer._id}
                 answer={answer}
-                userId={JSON.parse(JSON.stringify(mongouser._id))}
+                userId={mongouser && JSON.parse(JSON.stringify(mongouser?._id))}
               />
             ))}
           </div>
         )}
         {userId ? (
           <AnswerForm
-            author={JSON.stringify(mongouser._id)}
+            author={JSON.stringify(mongouser?._id)}
             question={JSON.stringify(question._id)}
           />
         ) : (

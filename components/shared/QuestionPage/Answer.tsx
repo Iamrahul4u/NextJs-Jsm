@@ -3,6 +3,7 @@ import Image from "next/image";
 import ParseHtml from "../ParseHtml";
 import { timeAgo } from "@/utlils/helperFunction";
 import Voting from "./Voting";
+import { SignedIn } from "@clerk/nextjs";
 
 interface Props {
   answer: any;
@@ -28,17 +29,19 @@ const Answer = ({ answer, userId }: Props) => {
             </p>
           </div>
           {/* <Voting /> */}
-          {userId && (
-            <Voting
-              type="Answer"
-              userId={userId}
-              questionId={JSON.parse(JSON.stringify(answer._id))}
-              hasupVoted={answer.upvotes!.includes(userId)}
-              upvotes={answer.upvotes!.length}
-              hasdownVoted={answer.downvotes!.includes(userId)}
-              downvotes={answer!.downvotes!.length}
-            />
-          )}
+          <SignedIn>
+            {userId && (
+              <Voting
+                type="Answer"
+                userId={userId}
+                questionId={JSON.parse(JSON.stringify(answer._id))}
+                hasupVoted={answer.upvotes!.includes(userId)}
+                upvotes={answer.upvotes!.length}
+                hasdownVoted={answer.downvotes!.includes(userId)}
+                downvotes={answer!.downvotes!.length}
+              />
+            )}
+          </SignedIn>
         </div>
         <ParseHtml data={answer.content} />
       </div>

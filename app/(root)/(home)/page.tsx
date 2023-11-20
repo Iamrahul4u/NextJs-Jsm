@@ -11,6 +11,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
   return (
     <>
@@ -30,12 +31,17 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       <HomePageFilter />
       <div className="mt-10 flex  flex-col gap-6">
         {result
-          ? result?.map((question) => (
+          ? result?.questions?.map((question) => (
               <Card question={question} key={question._id} />
             ))
           : "No Questions"}
       </div>
-      <Pagination />
+      <div className="mt-10">
+        <Pagination
+          pageNum={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
+      </div>
     </>
   );
 }

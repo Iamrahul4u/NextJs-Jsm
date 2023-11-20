@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Button } from "../../ui/button";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { AnswerSchema } from "@/utlils/Validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +43,7 @@ const AnswerForm = ({
         editor.setContent("");
       }
     } catch (error: any) {
-      console.log(error.message);
+      throw new Error(error);
     } finally {
       setSubmitting(false);
     }
@@ -53,17 +52,6 @@ const AnswerForm = ({
     <div className="my-6">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-semibold"> Write Your Answer Here</h3>
-        <Button className=" flex max-h-10 items-center gap-1 bg-zinc-100 text-orange-500 dark:text-orange-500">
-          <span>
-            <Image
-              src="/assets/icons/stars.svg"
-              height={18}
-              width={18}
-              alt="generateAiAnswer"
-            />
-          </span>
-          Generate AI Answer
-        </Button>
       </div>
 
       {/* Form for user Answer */}

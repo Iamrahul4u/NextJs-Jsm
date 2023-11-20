@@ -3,16 +3,10 @@ import Filter from "@/components/shared/Filter";
 import SearchBar from "@/components/shared/SearchBar";
 import { IQuestion } from "@/database/question.model";
 import { getQuestionByTags } from "@/lib/actions/tags.action";
-import { SearchParamsProps } from "@/types";
+import { URLProps } from "@/types";
 import Link from "next/link";
 
-export default async function Tag({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: SearchParamsProps;
-}) {
+export default async function Tag({ params, searchParams }: URLProps) {
   const result = await getQuestionByTags({
     tagId: params.id,
     searchQuery: searchParams.q,
