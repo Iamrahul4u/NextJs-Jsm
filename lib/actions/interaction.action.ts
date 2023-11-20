@@ -16,7 +16,7 @@ export const viewQuestion = async (params: ViewQuestionParams) => {
         user: userId,
         action: "view",
       });
-      if (existingInteraction) return console.log("Question Already Watched");
+      if (existingInteraction) return null;
       else {
         await Question.findByIdAndUpdate(questionId, { $inc: { views: 1 } });
         await Interaction.create({
