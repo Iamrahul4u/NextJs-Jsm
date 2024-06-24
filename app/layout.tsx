@@ -32,23 +32,24 @@ export default function RootLayout({
       <body
         className={`${inter.variable}  ${grotesk.variable} custom-scrollbar`}
       >
-        <ClerkProvider
-          appearance={{
-            elements: {
-              formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
-            },
-          }}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+          <ClerkProvider
+            appearance={{
+              elements: {
+                formButtonPrimary: "primary-gradient",
+                footerActionLink:
+                  "primary-text-gradient hover:text-primary-500",
+              },
+            }}
           >
             {children}
-          </ThemeProvider>
-        </ClerkProvider>
+          </ClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
